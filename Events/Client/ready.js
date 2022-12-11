@@ -3,6 +3,7 @@ const { connect } = require("mongoose");
 const config = require("../../config.json");
 const { magenta, white, green, red } = require("chalk");
 const { loadCommands } = require("../../Handlers/Command");
+const Levels = require("discord.js-leveling");
 
 module.exports = {
   name: "ready",
@@ -16,10 +17,7 @@ module.exports = {
 
     loadCommands(client);
 
-    client.user.setPresence({
-      activities: [{ name: "Yoasobi - Blue", type: ActivityType.Listening }],
-      status: "online",
-    });
+    Levels.setURL(config.mongodb);
 
     connect(config.mongodb)
       .then(() => {
